@@ -1,15 +1,22 @@
 // script.js
-const quotes = [
-    "The best way to get started is to quit talking and begin doing.",
-    "Don’t let yesterday take up too much of today.",
-    "It’s not whether you get knocked down, it’s whether you get up.",
-    "If you are working on something exciting, it will keep you motivated.",
-    "Success doesn’t come to you, you go to it.",
-    "Dream big and dare to fail.",
-    "Your limitation—it’s only your imagination."
-];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Quote Generator ✨</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Quote Generator ✨</h1>
+    <p class="quote" id="quote">Loading...</p>
+    <p class="author" id="author"></p>
+    <button class="new-btn" onclick="newQuote()">New Quote</button>
+    <button class="copy-btn" onclick="copyQuote()">Copy</button>
+    <button class="tweet-btn" onclick="tweetQuote()">Tweet</button>
+  </div>
 
-function newQuote() {
-    const random = Math.floor(Math.random() * quotes.length);
-    document.getElementById("quote").innerText = quotes[random];
-}
+  <script src="script.js"></script>
+</body>
+</html>
