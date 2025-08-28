@@ -3,77 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quotes Generator</title>
+  <title>✨ Quote Generator ✨</title>
   <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Quote of the Day</h1>
-    <p id="quote">Click the button to see a quote!</p>
-    <button onclick="newQuote()">New Quote</button>
-  </div>
-
-  <!-- ✅ Script file should be included at the end -->
-  <script src="script.js"></script>
-</body>
-</html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quote Generator</title>
-  <link rel="stylesheet" href="style.css">
-  </head>
-<body>
-  <div class="container">
-    <h1>Quote of the Day</h1>
-    <p id="quote">Click the button to see a quote!</p>
-    <button onclick="generateQuote()">New Quote</button>
-  </div>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .container {
-      text-align: center;
-      background: rgba(30, 41, 59, 0.9);
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 500px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    }
-    .quote {
-      font-size: 1.5em;
-      margin-bottom: 15px;
-    }
-    .author {
-      font-size: 1em;
-      color: #94a3b8;
-      margin-bottom: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      margin: 5px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: 0.2s;
-    }
-    .new-btn { background: #38bdf8; color: black; }
-    .copy-btn { background: #4ade80; color: black; }
-    .tweet-btn { background: #facc15; color: black; }
-    button:hover { opacity: 0.8; }
-  </style>
 </head>
 <body>
   <div class="container">
@@ -85,48 +16,6 @@
     <button class="tweet-btn" onclick="tweetQuote()">Tweet</button>
   </div>
 
-  <script>
-    const localQuotes = [
-      { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-      { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
-      { text: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
-      { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman" },
-      { text: "Action is the foundational key to all success.", author: "Pablo Picasso" }
-    ];
-
-    const quoteEl = document.getElementById("quote");
-    const authorEl = document.getElementById("author");
-
-    async function newQuote() {
-      try {
-        const res = await fetch("https://api.quotable.io/random");
-        if (!res.ok) throw new Error("API error");
-        const data = await res.json();
-        quoteEl.textContent = "“" + data.content + "”";
-        authorEl.textContent = "— " + data.author;
-      } catch (err) {
-        // fallback to local quotes
-        const q = localQuotes[Math.floor(Math.random() * localQuotes.length)];
-        quoteEl.textContent = "“" + q.text + "”";
-        authorEl.textContent = "— " + q.author;
-      }
-    }
-
-    function copyQuote() {
-      navigator.clipboard.writeText(quoteEl.textContent + " " + authorEl.textContent);
-      alert("Quote copied!");
-    }
-
-    function tweetQuote() {
-      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteEl.textContent + " " + authorEl.textContent)}`;
-      window.open(url, "_blank");
-    }
-
-    // load first quote
-    newQuote();
-    
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
-
- -->
