@@ -1,22 +1,40 @@
 // script.js
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>✨ Quote Generator ✨</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>✨ Quote Generator ✨</h1>
-    <p class="quote" id="quote">Loading...</p>
-    <p class="author" id="author"></p>
-    <button class="new-btn" onclick="newQuote()">New Quote</button>
-    <button class="copy-btn" onclick="copyQuote()">Copy</button>
-    <button class="tweet-btn" onclick="tweetQuote()">Tweet</button>
-  </div>
+const localQuotes = [
+  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+  { text: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
+  { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman" },
+  { text: "Action is the foundational key to all success.", author: "Pablo Picasso" }
+];
 
-  <script src="script.js"></script>
-</body>
-</html>
+const quoteEl = document.getElementById("quote");
+const authorEl = document.getElementById("author");
+
+async function newQuote() {
+  try {
+    const res = await fetch("https://api.quotable.io/random");
+    if (!res.ok) throw new Error("API error");
+    const data = await res.json();
+    quoteEl.textContent = "“" + data.content + "”";
+    authorEl.textContent = "— " + data.author;
+  } catch (err) {
+    // fallback to local quotes
+    const q = localQuotes[Math.floor(Math.random() * localQuotes.length)];
+    quoteEl.textContent = "“" + q.text + "”";
+    authorEl.textContent = "— " + q.author;
+  }
+}
+
+function copyQuote() {
+  navigator.clipboard.writeText(quoteEl.textContent + " " + authorEl.textContent);
+  alert("Quote copied!");
+}
+
+function tweetQuote() {
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteEl.textContent + " " + authorEl.textContent)}`;
+  window.open(url, "_blank");
+}
+
+// load first quote
+newQuote();
+
