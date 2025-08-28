@@ -1,40 +1,45 @@
 // script.js
-const localQuotes = [
-  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-  { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
-  { text: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
-  { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman" },
-  { text: "Action is the foundational key to all success.", author: "Pablo Picasso" }
+const quotes = [
+  { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
+  { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
+  { text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
+  { text: "Happiness depends upon ourselves.", author: "Aristotle" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "Your time is limited, don’t waste it living someone else’s life.", author: "Steve Jobs" }
 ];
 
 const quoteEl = document.getElementById("quote");
 const authorEl = document.getElementById("author");
+const dateEl = document.getElementById("date");
+const newQuoteBtn = document.getElementById("new-quote");
+const copyBtn = document.getElementById("copy-quote");
 
-async function newQuote() {
-  try {
-    const res = await fetch("https://api.quotable.io/random");
-    if (!res.ok) throw new Error("API error");
-    const data = await res.json();
-    quoteEl.textContent = "“" + data.content + "”";
-    authorEl.textContent = "— " + data.author;
-  } catch (err) {
-    // fallback to local quotes
-    const q = localQuotes[Math.floor(Math.random() * localQuotes.length)];
-    quoteEl.textContent = "“" + q.text + "”";
-    authorEl.textContent = "— " + q.author;
-  }
+// Show today's date (India Time)
+function updateDate() {
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Kolkata' };
+  const today = new Date().toLocaleDateString("en-IN", options);
+  dateEl.innerText = today;
 }
 
+// Generate random quote
+function newQuote() {
+  const random = Math.floor(Math.random() * quotes.length);
+  quoteEl.innerText = `"${quotes[random].text}"`;
+  authorEl.innerText = `- ${quotes[random].author}`;
+}
+
+// Copy quote to clipboard
 function copyQuote() {
-  navigator.clipboard.writeText(quoteEl.textContent + " " + authorEl.textContent);
-  alert("Quote copied!");
+  const text = `${quoteEl.innerText} ${authorEl.innerText}`;
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Quote copied to clipboard!");
+  });
 }
 
-function tweetQuote() {
-  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteEl.textContent + " " + authorEl.textContent)}`;
-  window.open(url, "_blank");
-}
+// Event listeners
+newQuoteBtn.addEventListener("click", newQuote);
+copyBtn.addEventListener("click", copyQuote);
 
-// load first quote
+// Initialize
+updateDate();
 newQuote();
-
